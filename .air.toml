@@ -1,0 +1,19 @@
+# Config file for air
+root = "."
+tmp_dir = "tmp"
+bin = "tmp/main"
+
+[build]
+cmd = "go build -o ./tmp/main ./cmd/web"
+include_ext = ["go", "tpl", "tmpl", "html"]
+exclude_dir = ["tmp", "vendor"]
+
+[log]
+level = "info"
+
+# Execute a cleanup command before starting the app
+[hooks]
+pre_start = "fuser -k 4000/tcp || true"
+
+# Ensure port cleanup on shutdown
+pre_shutdown = "fuser -k 4000/tcp || true"
